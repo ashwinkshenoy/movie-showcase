@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import SearchBox from './components/search';
-import MovieList from './components/movieList';
-import Card from './components/card';
+
+// Components
+import SearchBox from './components/search/search.js';
+import MovieList from './components/movieList/movieList.js';
+import Card from './components/card/card.js';
+
+// Basic Stying
 import './App.css';
 
 const key = '8669a80875d5423ff1d26a31a3a4c2db';
@@ -12,7 +16,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      movieID: 299534, // set initital load movie - Avengers
+      movieID: 24428, // set initital load movie - Avengers
       search: null
     }
     this.delayedCallback = debounce(this.queryMovieID, 500);
@@ -68,10 +72,6 @@ class App extends Component {
 
   handleSearch(e) {
     this.delayedCallback(e)
-  }
-  
-  handleSubmit(e) {
-    e.preventDefault();
   }
 
   render() {

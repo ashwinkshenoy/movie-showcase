@@ -14,7 +14,7 @@ class MovieList extends Component {
         <ul>
           {data.map(movie => (
             <li key={movie.id} onClick={() => this.props.fetchMovieID(movie.id)}>
-              <div>
+              <div className="movie-list__wrapper">
                 <img src={movie.poster_path === null ? noImg : defaultImgPath+movie.poster_path} alt={movie.name} />
                 <div className="movie-list__content">
                   <h4>{movie.title}</h4>

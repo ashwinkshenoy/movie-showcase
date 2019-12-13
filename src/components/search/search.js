@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import './search.css';
 
 class SearchBox extends Component {
-
   render() {
     return (
       <div className="movie-search">
-        <form>
+        <form onSubmit={e => { e.preventDefault(); }} >
           <input
             ref="search suggestion"
             onChange={(e) => this.props.handleSearch(e.target.value)}

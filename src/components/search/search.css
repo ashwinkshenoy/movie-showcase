@@ -23,13 +23,13 @@
 }
 
 ::-webkit-input-placeholder {
-  color: #ffffff;
+  color: #ccc;
 }
 
 :-ms-input-placeholder {
-  color: #ffffff;
+  color: #ccc;
 }
 
 ::placeholder {
-  color: #ffffff;
+  color: #ccc;
 }

@@ -41,7 +41,7 @@ class Card extends Component {
       <div className="movie-card">
 
         <div className="movie-card__backdrop">
-          <img src={backdropImg} />
+          <img src={backdropImg} alt={`backdrop-${data.original_title}`} />
         </div>
 
         <div className="movie-card-main">
