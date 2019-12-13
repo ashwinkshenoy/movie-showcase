@@ -1,5 +1,5 @@
 {
-  "name": "new-movie",
+  "name": "movie-showcase",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

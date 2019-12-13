@@ -60,7 +60,6 @@ class App extends Component {
     this.setState(() => ({ search: name }));
     let url = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${key}`
     fetch(url).then((res) => res.json()).then((data) => {
-      console.log(data.results);
       // update state with API data
       this.setState({
         searchData: data.results
