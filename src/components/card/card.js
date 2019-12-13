@@ -41,7 +41,7 @@ class Card extends Component {
 
         <div className="movie-card-main">
           <div className="movie-card__poster">
-            <img src={posterIMG} alt={data.title} />}
+            <img src={posterIMG} alt={data.title} />
           </div>
           <div className="movie-card__content">
             <h1>{data.title}</h1>

@@ -84,6 +84,7 @@ class App extends Component {
           <MovieList data={this.state.searchData} fetchMovieID={this.fetchMovieID.bind(this)} /> : 
           <Card data={this.state}/>
         }
+        <footer>Crafted with <span role="img" aria-label="heart">❤️</span></footer>
       </div>
     )
   }
