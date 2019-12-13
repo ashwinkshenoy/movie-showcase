@@ -4,7 +4,7 @@ import './card.css'
 
 class Card extends Component {
   render() {
-    let data = this.props.data
+    let data = this.props.data || {}
 
     let posterIMG = 'https://image.tmdb.org/t/p/w500' + data.poster,
         production = data.production,
@@ -13,7 +13,7 @@ class Card extends Component {
         productionList = nestedDataToString(production),
         noData = '-',
         genresList = nestedDataToString(genres),
-        backdrop = 'https://image.tmdb.org/t/p/original' + data.backdrop;
+        backdropImg = 'https://image.tmdb.org/t/p/original' + data.backdrop;
 
     // conditional statements for no data
     if (data.vote === 'undefined' || data.vote === 0) {
@@ -25,11 +25,15 @@ class Card extends Component {
     if (totalRevenue === 'undefined' || totalRevenue === 0) {
       totalRevenue = noData
     } else {
-      totalRevenue = data.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      totalRevenue = data.revenue && '$' + data.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     if(data.poster== null){
       posterIMG = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSols5HZxlQWyS9JY5d3_L9imbk0LiziHiyDtMZLHt_UNzoYUXs2g';
+    }
+
+    if(data.backdrop== null){
+      backdropImg = '';
     }
 
 
@@ -37,7 +41,7 @@ class Card extends Component {
       <div className="movie-card">
 
         <div className="movie-card__backdrop">
-          <img src={backdrop} />
+          <img src={backdropImg} />
         </div>
 
         <div className="movie-card-main">

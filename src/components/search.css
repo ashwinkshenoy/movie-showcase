@@ -1,0 +1,35 @@
+.movie-search {
+  padding: 50px 10px 100px;
+  text-align: center;
+}
+
+.movie-search__input {
+  font-size: 20px;
+  font-weight: 300;
+  height: 50px;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  border: 0;
+  padding: 0 15px;
+  outline: none;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+}
+
+.movie-search__input:focus {
+  background: rgba(0, 0, 0, 0.8);
+  transition: 0.2s all ease-in-out;
+}
+
+::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+::placeholder {
+  color: #ffffff;
+}
