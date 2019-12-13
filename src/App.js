@@ -29,6 +29,7 @@ class App extends Component {
       this.setState({
         movieID: data.id,
         original_title: data.original_title,
+        title: data.title,
         tagline: data.tagline,
         overview: data.overview,
         homepage: data.homepage,
@@ -45,6 +46,8 @@ class App extends Component {
         searchData: []
       })
     })
+    // Reset search form
+    document.getElementById('movieSearch').reset();
   }
 
   fetchMovieID(movieID) {
@@ -62,7 +65,7 @@ class App extends Component {
       this.setState({
         searchData: data.results
       })
-    })
+    });
   }
 
   componentDidMount() {
@@ -87,6 +90,7 @@ class App extends Component {
   }
 }
 
+// Since no npm pkgs, wrote debounce for search
 function debounce(func, wait, immediate) {
   var timeout;
   return function() {

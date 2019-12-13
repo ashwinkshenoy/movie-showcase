@@ -5,7 +5,7 @@ class SearchBox extends Component {
   render() {
     return (
       <div className="movie-search">
-        <form onSubmit={e => { e.preventDefault(); }} >
+        <form onSubmit={e => { e.preventDefault(); }} id="movieSearch">
           <input
             ref="search suggestion"
             onChange={(e) => this.props.handleSearch(e.target.value)}

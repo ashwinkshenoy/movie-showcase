@@ -29,27 +29,22 @@ class Card extends Component {
     };
 
     if(data.poster== null){
-      posterIMG = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSols5HZxlQWyS9JY5d3_L9imbk0LiziHiyDtMZLHt_UNzoYUXs2g';
+      posterIMG = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwgeZwy48tVBuhwGLh2Kgz55JSEi0rlyx1tiqVb7gqsaR4yqZa';
     }
-
-    if(data.backdrop== null){
-      backdropImg = '';
-    }
-
 
     return (
       <div className="movie-card">
 
         <div className="movie-card__backdrop">
-          <img src={backdropImg} alt={`backdrop-${data.original_title}`} />
+          {data.backdrop === null ? '' : <img src={backdropImg} alt={data.title} />}
         </div>
 
         <div className="movie-card-main">
           <div className="movie-card__poster">
-            <img src={posterIMG} alt={data.original_title} />
+            <img src={posterIMG} alt={data.title} />}
           </div>
           <div className="movie-card__content">
-            <h1>{data.original_title}</h1>
+            <h1>{data.title}</h1>
             <span className="movie-card__tagline">{data.tagline}</span>
             <p className="movie-card__overview">{data.overview}</p>
             <p className="movie-card__genre">{genresList}</p>

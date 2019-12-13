@@ -5,9 +5,8 @@ class MovieList extends Component {
 
   render() {
     let data = this.props.data || [];
-    const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSols5HZxlQWyS9JY5d3_L9imbk0LiziHiyDtMZLHt_UNzoYUXs2g';
+    const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwgeZwy48tVBuhwGLh2Kgz55JSEi0rlyx1tiqVb7gqsaR4yqZa';
     const defaultImgPath = "https://image.tmdb.org/t/p/w500";
-
 
     return (
       <div className="movie-list">

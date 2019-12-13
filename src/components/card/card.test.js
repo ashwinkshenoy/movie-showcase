@@ -58,4 +58,7 @@ it('Check card contents', () => {
   expect(wrapper.find('.movie-card__tagline').text()).toEqual(mockData.tagline);
   expect(wrapper.find('.movie-card__overview').text()).toEqual(mockData.overview);
   expect(wrapper.find('.movie-card__genre').exists()).toEqual(true);
+  expect(wrapper.find('.movie-card__row').exists()).toEqual(true);
+  expect(wrapper.find('.movie-card__col').exists()).toEqual(true);
+  expect(wrapper.find('.meta-data').exists()).toEqual(true);
 });
