@@ -9,6 +9,8 @@ Github: [Link](https://github.com/ashwinkshenoy/movie-showcase)
 
 ## Available Scripts
 
+Install dependencies using `yarn`.
+
 In the project directory, you can run:
 
 ### `yarn start`
