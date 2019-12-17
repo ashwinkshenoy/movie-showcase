@@ -17,7 +17,8 @@ class App extends Component {
 
     this.state = {
       movieID: 24428, // set initital load movie - Avengers
-      search: null
+      search: null,
+      loading: false
     }
     this.delayedCallback = debounce(this.queryMovieID, 500);
   }
@@ -43,7 +44,8 @@ class App extends Component {
         revenue: data.revenue,
         backdrop: data.backdrop_path,
         search: null,
-        searchData: []
+        searchData: [],
+        loading: false
       })
     })
     // Reset search form
@@ -62,7 +64,8 @@ class App extends Component {
     fetch(url).then((res) => res.json()).then((data) => {
       // update state with API data
       this.setState({
-        searchData: data.results
+        searchData: data.results,
+        loading: false
       })
     });
   }
@@ -73,6 +76,16 @@ class App extends Component {
   }
 
   handleSearch(e) {
+    if(e === "") {
+      this.setState({
+        loading: false
+      })
+      return;
+    }
+    this.setState({
+      loading: true
+    })
+    
     this.delayedCallback(e)
   }
 
@@ -81,7 +94,7 @@ class App extends Component {
       <div className="container">
         <SearchBox handleSearch={this.handleSearch.bind(this)} handleSubmit={this.handleSubmit}/>
         {this.state.search ? 
-          <MovieList data={this.state.searchData} fetchMovieID={this.fetchMovieID.bind(this)} /> : 
+          <MovieList data={this.state.searchData} fetchMovieID={this.fetchMovieID.bind(this)} loading={this.state.loading} /> : 
           <Card data={this.state}/>
         }
         <footer>Crafted with <span role="img" aria-label="heart">❤️</span></footer>
