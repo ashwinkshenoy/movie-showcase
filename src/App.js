@@ -18,7 +18,8 @@ class App extends Component {
     this.state = {
       movieID: 24428, // set initital load movie - Avengers
       search: null,
-      loading: false
+      loading: false,
+      similar: []
     }
     this.delayedCallback = debounce(this.queryMovieID, 500);
   }
@@ -45,7 +46,8 @@ class App extends Component {
         backdrop: data.backdrop_path,
         search: null,
         searchData: [],
-        loading: false
+        loading: false,
+        similar: data.similar.results
       })
     })
     // Reset search form
@@ -53,7 +55,7 @@ class App extends Component {
   }
 
   fetchMovieID(movieID) {
-    let url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=videos,images`
+    let url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar`
     this.fetchApi(url)
   }
 
@@ -71,7 +73,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let url = `https://api.themoviedb.org/3/movie/${this.state.movieID}?&api_key=${key}&append_to_response=videos,images`
+    let url = `https://api.themoviedb.org/3/movie/${this.state.movieID}?&api_key=${key}&append_to_response=similar`
     this.fetchApi(url)
   }
 
@@ -95,9 +97,9 @@ class App extends Component {
         <SearchBox handleSearch={this.handleSearch.bind(this)} handleSubmit={this.handleSubmit}/>
         {this.state.search ? 
           <MovieList data={this.state.searchData} fetchMovieID={this.fetchMovieID.bind(this)} loading={this.state.loading} /> : 
-          <Card data={this.state}/>
+          <Card data={this.state} fetchMovieID={this.fetchMovieID.bind(this)} />
         }
-        <footer>Crafted with <span role="img" aria-label="heart">❤️</span></footer>
+        <footer className="ashwin">Crafted with <span role="img" aria-label="heart">❤️</span></footer>
       </div>
     )
   }

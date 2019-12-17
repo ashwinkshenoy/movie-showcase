@@ -1,38 +1,13 @@
 import React, { Component } from "react"
-import emptyImg from '../../static/empty.svg';
-import loader from '../../static/loader.svg';
+
+import MovieItem from '../movieItem/movieItem'
 import './movieList.css';
 
-const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwgeZwy48tVBuhwGLh2Kgz55JSEi0rlyx1tiqVb7gqsaR4yqZa';
-const defaultImgPath = "https://image.tmdb.org/t/p/w500";
+import emptyImg from '../../static/empty.svg';
+import loader from '../../static/loader.svg';
+
 
 class MovieList extends Component {
-  
-  searchData(data) {
-    return (
-      <div className="movie-list">
-        <ul>
-          {data.map(movie => (
-            <li key={movie.id} onClick={() => this.props.fetchMovieID(movie.id)}>
-              <div className="movie-list__wrapper">
-                <img src={movie.poster_path === null ? noImg : defaultImgPath+movie.poster_path} alt={movie.name} loading="lazy" />
-                <div className="movie-list__content">
-                  <h4>{movie.title}</h4>
-                  <p className="movie-list__rating">
-                    <span>{movie.vote_average}</span>/10
-                  </p>
-                  <p className="movie-list__release">
-                    Release Date:
-                    <span>{movie.release_date}</span>
-                  </p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
 
   noSearchData() {
     return (
@@ -54,7 +29,7 @@ class MovieList extends Component {
         </div>
       )
     } else {
-      return data.length === 0 ? this.noSearchData() : this.searchData(data);
+      return data.length === 0 ? this.noSearchData() : <MovieItem data={data} fetchMovieID={this.props.fetchMovieID.bind(this)} />;
     }
   }
 }

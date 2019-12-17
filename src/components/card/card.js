@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import MovieItem from '../movieItem/movieItem'
+
 import './card.css'
 
-
 class Card extends Component {
+
+  componentDidMount = () => this.handleScroll()
+
+  componentDidUpdate = () => this.handleScroll()
+
+  handleScroll() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     let data = this.props.data || {}
-
+    
     let posterIMG = 'https://image.tmdb.org/t/p/w500' + data.poster,
         production = data.production,
         genres = data.genre,
@@ -33,41 +43,48 @@ class Card extends Component {
     }
 
     return (
-      <div className="movie-card">
+      <>
+        <div className="movie-card">
 
-        <div className="movie-card__backdrop">
-          {data.backdrop === null ? '' : <img src={backdropImg} alt={data.title} />}
-        </div>
-
-        <div className="movie-card-main">
-          <div className="movie-card__poster">
-            <img src={posterIMG} alt={data.title} />
+          <div className="movie-card__backdrop">
+            {data.backdrop === null ? '' : <img src={backdropImg} alt={data.title} />}
           </div>
-          <div className="movie-card__content">
-            <h1>{data.original_title}</h1>
-            <span className="movie-card__tagline">{data.tagline}</span>
-            <p className="movie-card__overview">{data.overview}</p>
-            <p className="movie-card__genre">{genresList}</p>
-            <p className="movie-card__production">{productionList}</p>
-            
-            <div className="movie-card__row">
-              <div className="movie-card__col">
-                Original Release: <span className="meta-data">{data.release}</span>
-              </div>
-              <div className="movie-card__col">
-                Running Time: <span className="meta-data">{data.runtime} mins</span>
-              </div>
-              <div className="movie-card__col">
-                Vote Average: <span className="meta-data">{data.vote}</span>
-              </div>
-              <div className="movie-card__col">
-                Box Office: <span className="meta-data">{totalRevenue}</span>
-              </div>
+
+          <div className="movie-card-main">
+            <div className="movie-card__poster">
+              <img src={posterIMG} alt={data.title} />
             </div>
+            <div className="movie-card__content">
+              <h1>{data.original_title}</h1>
+              <span className="movie-card__tagline">{data.tagline}</span>
+              <p className="movie-card__overview">{data.overview}</p>
+              <p className="movie-card__genre">{genresList}</p>
+              <p className="movie-card__production">{productionList}</p>
+              
+              <div className="movie-card__row">
+                <div className="movie-card__col">
+                  Original Release: <span className="meta-data">{data.release}</span>
+                </div>
+                <div className="movie-card__col">
+                  Running Time: <span className="meta-data">{data.runtime} mins</span>
+                </div>
+                <div className="movie-card__col">
+                  Vote Average: <span className="meta-data">{data.vote}</span>
+                </div>
+                <div className="movie-card__col">
+                  Box Office: <span className="meta-data">{totalRevenue}</span>
+                </div>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
+
+        <div className="movie-card-related">
+          {data.similar && data.similar.length > 0 ? <h2>Related Movies</h2> : ''}
+          <MovieItem data={data.similar} fetchMovieID={this.props.fetchMovieID} count={6} />
+        </div>
+      </>
     )
   }
 

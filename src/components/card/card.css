@@ -89,6 +89,11 @@ h1 {
   font-weight: 600;
 }
 
+.movie-card-related h2 {
+  text-align: center;
+  margin: 150px 0 80px 0;
+}
+
 @media screen and (max-width: 768px) {
   .movie-card-main {
     grid-template-columns: 1fr;

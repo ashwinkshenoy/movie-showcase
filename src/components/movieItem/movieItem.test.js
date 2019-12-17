@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import MovieList from './movieList';
+import MovieItem from '../movieItem/movieItem';
 
 const mockData = [{
   'popularity': 82.512,
@@ -25,14 +25,14 @@ let x = 0;
 function onClickFunction(e) {return x++}
 
 it('Check basic structure', () => {
-  const wrapper = mount(<MovieList data={mockData}/>);  
+  const wrapper = mount(<MovieItem data={mockData}/>);  
   expect(wrapper.find('ul').exists()).toEqual(true);
   expect(wrapper.find('li').exists()).toEqual(true);
   expect(wrapper.find('.movie-list__wrapper').exists()).toEqual(true);
 });
 
 it('Check content', () => {
-  const wrapper = mount(<MovieList data={mockData} fetchMovieID={onClickFunction.bind(this)} />);  
+  const wrapper = mount(<MovieItem data={mockData} fetchMovieID={onClickFunction.bind(this)} />);  
   expect(wrapper.find('.movie-list__content').exists()).toEqual(true);
   expect(wrapper.find('img').exists()).toEqual(true);
   expect(wrapper.find('img').prop('src')).toEqual(baseImgUrl+mockData[0].poster_path);
