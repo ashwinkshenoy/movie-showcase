@@ -17,20 +17,23 @@ class MovieList extends Component {
       </div>
     )
   }
+
+  loader() {
+    return (
+      <div className="movie-list-loading">
+        <img src={loader} alt="loader" />
+        <p>Loading...</p>
+      </div>
+    )
+  }
   
   render() {
     let data = this.props.data || [];
     const loading = this.props.loading;
-    if(loading) {
-      return (
-        <div className="movie-list-loading">
-          <img src={loader} alt="loader" />
-          <p>Loading...</p>
-        </div>
-      )
-    } else {
-      return data.length === 0 ? this.noSearchData() : <MovieItem data={data} fetchMovieID={this.props.fetchMovieID.bind(this)} />;
-    }
+
+    return loading ? this.loader() : 
+      data.length === 0 ? this.noSearchData() : 
+      <MovieItem data={data} fetchMovieID={this.props.fetchMovieID.bind(this)} />;
   }
 }
 

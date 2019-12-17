@@ -101,6 +101,12 @@ h1 {
     padding: 30px;
     margin: 10px auto;
   }
+  .movie-card__backdrop img {
+    height: 60vh;
+  }
+  .movie-card__backdrop:before {
+    background: linear-gradient(0deg, #f7f7f7 0%, #f7f7f7 40%, rgba(81, 37, 184, 0.39) 100%);
+  }
   .movie-card__poster img {
     position: relative;
     margin-top: -70px;
