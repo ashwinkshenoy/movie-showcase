@@ -3,6 +3,8 @@ import MovieItem from '../movieItem/movieItem'
 
 import './card.css'
 
+import imdbLogo from '../../static/imdbLogo.svg'
+
 function Card(props) {
 
   const data = props.data || {}
@@ -58,7 +60,7 @@ function Card(props) {
                 Running Time: <span className="meta-data">{convertMinsToHrsMins(data.runtime)}</span>
               </div>
               <div className="movie-card__col">
-                Vote Average: <span className="meta-data">{data.vote} / 10</span>
+                Vote Average: <span className="meta-data"><img src={imdbLogo} alt="imdb" />{data.vote} / 10</span>
               </div>
               <div className="movie-card__col">
                 Box Office: <span className="meta-data">{totalRevenue}</span>

@@ -65,6 +65,13 @@
   .movie-list__content {
     padding: 0 20px 20px;
   }
+  .movie-list li {
+    background: #1f1f1f;
+    color: white;
+  }
+  .movie-list__release {
+    color: #ffffff;
+  }
   h4 {
     margin-top: 5px;
   }
