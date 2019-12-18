@@ -1,15 +1,26 @@
-import React, { Component } from "react"
+import React from "react"
 
 import MovieItem from '../movieItem/movieItem'
 import './movieList.css';
 
 import emptyImg from '../../static/empty.svg';
-import loader from '../../static/loader.svg';
+import loaderImg from '../../static/loader.svg';
 
+function MovieList(props) {
+  
+  const data = props.data || [];
+  const loading = props.loading;
+  
+  const loader = () => {
+    return (
+      <div className="movie-list-loading">
+        <img src={loaderImg} alt="loader" />
+        <p>Loading...</p>
+      </div>
+    )
+  }
 
-class MovieList extends Component {
-
-  noSearchData() {
+  const noSearchData = () => {
     return (
       <div className="no-data">
         <img src={emptyImg} alt="no data found" />
@@ -18,23 +29,10 @@ class MovieList extends Component {
     )
   }
 
-  loader() {
-    return (
-      <div className="movie-list-loading">
-        <img src={loader} alt="loader" />
-        <p>Loading...</p>
-      </div>
-    )
-  }
-  
-  render() {
-    let data = this.props.data || [];
-    const loading = this.props.loading;
 
-    return loading ? this.loader() : 
-      data.length === 0 ? this.noSearchData() : 
-      <MovieItem data={data} fetchMovieID={this.props.fetchMovieID.bind(this)} />;
-  }
+  return loading ? loader() : 
+    data.length === 0 ? noSearchData() : 
+    <MovieItem data={data} fetchMovieID={props.fetchMovieID.bind(this)} />;
 }
 
 export default MovieList;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Components
 import SearchBox from './components/search/search.js';
@@ -8,27 +8,21 @@ import Card from './components/card/card.js';
 // Basic Stying
 import './App.css';
 
-const key = '8669a80875d5423ff1d26a31a3a4c2db';
+const key = process.env.REACT_APP_MOVIE_DB_KEY;
 
-class App extends Component {
+function App() {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      movieID: 24428, // set initital load movie - Avengers
-      search: null,
-      loading: false,
-      similar: []
-    }
-    this.delayedCallback = debounce(this.queryMovieID, 500);
-  }
+  const [movieId] = useState(24428);
+  const [movie, setMovie] = useState([]);
+  const [search, setSearch] = useState(null);
+  const [searchData, setSearchData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   // the api request function
-  fetchApi(url) {
+  const fetchApi = (url) => {
     fetch(url).then((res) => res.json()).then((data) => {
-      // update state with API data
-      this.setState({
+      setMovie({
         movieID: data.id,
         original_title: data.original_title,
         title: data.title,
@@ -44,81 +38,83 @@ class App extends Component {
         runtime: data.runtime,
         revenue: data.revenue,
         backdrop: data.backdrop_path,
-        search: null,
-        searchData: [],
-        loading: false,
         similar: data.similar.results
       })
     })
+    setSearch(null)
+    setSearchData([])
     // Reset search form
-    document.getElementById('movieSearch').reset();
+    document.getElementById('movieSearch').reset();   
   }
 
-  fetchMovieID(movieID) {
+  const fetchMovieID = (movieID) => {
     let url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar`
-    this.fetchApi(url)
+    fetchApi(url)
   }
 
-  queryMovieID(name) {
+  const queryMovieID = (name) => {
     if(!name) return;
-    this.setState(() => ({ search: name }));
+    setSearch(name)
     let url = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${key}`
     fetch(url).then((res) => res.json()).then((data) => {
       // update state with API data
-      this.setState({
-        searchData: data.results,
-        loading: false
-      })
+      setSearchData(data.results)
+      setLoading(false)
     });
   }
 
-  componentDidMount() {
-    let url = `https://api.themoviedb.org/3/movie/${this.state.movieID}?&api_key=${key}&append_to_response=similar`
-    this.fetchApi(url)
-  }
-
-  handleSearch(e) {
+  const handleSearch = (e) => {
     if(e === "") {
-      this.setState({
-        loading: false
-      })
+      setLoading(false)
       return;
     }
-    this.setState({
-      loading: true
-    })
-    
-    this.delayedCallback(e)
+    setLoading(true)
+    setSearch(e)
   }
 
-  render() {
-    return (
-      <div className="container">
-        <SearchBox handleSearch={this.handleSearch.bind(this)} handleSubmit={this.handleSubmit}/>
-        {this.state.search ? 
-          <MovieList data={this.state.searchData} fetchMovieID={this.fetchMovieID.bind(this)} loading={this.state.loading} /> : 
-          <Card data={this.state} fetchMovieID={this.fetchMovieID.bind(this)} />
-        }
-        <footer className="ashwin">Crafted with <span role="img" aria-label="heart">❤️</span></footer>
-      </div>
-    )
-  }
+  // Effect on mounted
+  useEffect(() => {
+    fetchMovieID(movieId)
+  // eslint-disable-next-line
+  }, [movieId]);
+
+  // Effect for search API call 
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      setLoading(true);
+      queryMovieID(debouncedSearchTerm)
+    } else {
+      setSearchData([]);
+    }
+  }, [debouncedSearchTerm]); // Only call effect if debounced search term changes
+
+  return (
+    <div className="container">
+      <SearchBox handleSearch={handleSearch.bind(this)} />
+      {search ? 
+        <MovieList data={searchData} fetchMovieID={fetchMovieID.bind(this)} loading={loading} /> : 
+        <Card data={movie} fetchMovieID={fetchMovieID.bind(this)} />
+      }
+      <footer className="ashwin">Crafted with <span role="img" aria-label="heart">❤️</span></footer>
+    </div>
+  )
 }
 
-// Since no npm pkgs, wrote debounce for search
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
+// Since not using custom npm pkgs, wrote debounce for search
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // Update debounced value after delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
     };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
+  }, [value, delay]);
+  
+  return debouncedValue;
+}
 
 export default App;

@@ -45,6 +45,7 @@
 h1 {
   font-size: 40px;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .movie-card__tagline {
@@ -89,7 +90,7 @@ h1 {
   font-weight: 600;
 }
 
-.movie-card-related h2 {
+.movie-related h2 {
   text-align: center;
   margin: 150px 0 80px 0;
 }
