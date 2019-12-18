@@ -21,7 +21,7 @@ function App() {
 
   // the api request function
   const fetchApi = (url) => {
-    fetch(url).then((res) => res.json()).then((data) => {
+    fetch(url).then((res) => res.json()).then((data) => {      
       setMovie({
         movieID: data.id,
         original_title: data.original_title,

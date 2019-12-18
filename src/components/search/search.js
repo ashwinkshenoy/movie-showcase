@@ -15,6 +15,7 @@ function SearchBox(props) {
           placeholder="Search Movie Title..."
           id="search"
           autoComplete="off"
+          aria-label="search"
         />
       </form>
     </div>
