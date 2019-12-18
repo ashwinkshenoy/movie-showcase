@@ -20,26 +20,25 @@ function App() {
   const debouncedSearchTerm = useDebounce(search, 500);
 
   // the api request function
-  const fetchApi = (url) => {
-    fetch(url).then((res) => res.json()).then((data) => {      
-      setMovie({
-        movieID: data.id,
-        original_title: data.original_title,
-        title: data.title,
-        tagline: data.tagline,
-        overview: data.overview,
-        homepage: data.homepage,
-        poster: data.poster_path,
-        production: data.production_companies,
-        production_countries: data.production_countries,
-        genre: data.genres,
-        release: data.release_date,
-        vote: data.vote_average,
-        runtime: data.runtime,
-        revenue: data.revenue,
-        backdrop: data.backdrop_path,
-        similar: data.similar.results
-      })
+  const fetchApi = async (url) => {
+    const data = await fetch(url).then((res) => res.json());
+    setMovie({
+      movieID: data.id,
+      original_title: data.original_title,
+      title: data.title,
+      tagline: data.tagline,
+      overview: data.overview,
+      homepage: data.homepage,
+      poster: data.poster_path,
+      production: data.production_companies,
+      production_countries: data.production_countries,
+      genre: data.genres,
+      release: data.release_date,
+      vote: data.vote_average,
+      runtime: data.runtime,
+      revenue: data.revenue,
+      backdrop: data.backdrop_path,
+      similar: data.similar.results
     })
     setSearch(null)
     setSearchData([])
@@ -48,19 +47,17 @@ function App() {
   }
 
   const fetchMovieID = (movieID) => {
-    let url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar`
+    const url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar`
     fetchApi(url)
   }
 
-  const queryMovieID = (name) => {
+  const queryMovieID = async (name) => {
     if(!name) return;
     setSearch(name)
-    let url = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${key}`
-    fetch(url).then((res) => res.json()).then((data) => {
-      // update state with API data
-      setSearchData(data.results)
-      setLoading(false)
-    });
+    const url = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=${key}`
+    const data = await fetch(url).then((res) => res.json());
+    setSearchData(data.results)
+    setLoading(false)
   }
 
   const handleSearch = (e) => {
@@ -87,6 +84,11 @@ function App() {
       setSearchData([]);
     }
   }, [debouncedSearchTerm]); // Only call effect if debounced search term changes
+
+  // Effect to scroll only on props change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [movie]);
 
   return (
     <div className="container">

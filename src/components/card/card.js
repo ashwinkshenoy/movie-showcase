@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MovieItem from '../movieItem/movieItem'
 
 import './card.css'
 
 function Card(props) {
-
-  // Effect to scrool only on props change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [props]);
-
 
   const data = props.data || {}
   
@@ -50,7 +44,7 @@ function Card(props) {
             <img src={posterIMG} alt={data.title} />
           </div>
           <div className="movie-card__content">
-            <h1>{data.original_title}</h1>
+            <h1>{data.title ? data.title : data.original_title}</h1>
             <span className="movie-card__tagline">{data.tagline}</span>
             <p className="movie-card__overview">{data.overview}</p>
             <p className="movie-card__genre">{genresList}</p>
