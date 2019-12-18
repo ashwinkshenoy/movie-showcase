@@ -125,6 +125,7 @@ h1 {
   }
   h1 {
     font-size: 30px;
+    margin-top: 0;
   }
   .movie-card__col {
     font-size: 15px;
