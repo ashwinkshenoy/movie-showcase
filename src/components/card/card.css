@@ -102,9 +102,6 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-  body {
-    background: #000000 !important;
-  }
   .movie-card-main {
     grid-template-columns: 1fr;
     grid-gap: 0;
@@ -115,10 +112,10 @@ h1 {
     color: #ffffff;
   }
   .movie-card__backdrop img {
-    height: 50vh;
+    height: 30vh;
   }
   .movie-card__backdrop:before {
-    background: linear-gradient(0deg, #000000 49%, #000000 7%, rgba(81, 37, 184, 0.39) 100%);
+    background: linear-gradient(0deg, #000000 0%, #000000 73%, rgba(81, 37, 184, 0.39) 90%);
   }
   .movie-card__poster {
     display: none;

@@ -15,7 +15,7 @@
   width: 300px;
   max-width: 300px;
   border-radius: 5px;
-  border: 0;
+  border: solid 1px #333333;
   padding: 0 15px;
   outline: none;
   background: rgba(0, 0, 0, 0.4);
@@ -46,7 +46,9 @@
     align-items: center;
     justify-content: center;
   }
-
+  .movie-search__input {
+    border: 0;
+  }
   .main-logo {
     margin-right: 20px;
   }
