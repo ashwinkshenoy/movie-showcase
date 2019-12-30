@@ -41,7 +41,7 @@
 
 @media screen and (min-width: 768px) {
   .movie-search {
-    padding: 50px 10px 100px;
+    padding: 50px 10px 50px;
     display: flex;
     align-items: center;
     justify-content: center;

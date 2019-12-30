@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieItem from '../movieItem/movieItem'
+// import MovieItem from '../movieItem/movieItem'
 
 import './card.css'
 
@@ -69,12 +69,6 @@ function Card(props) {
 
           </div>
         </div>
-      </div>
-
-      {/* Related Movies */}
-      <div className="movie-related">
-        {data.similar && data.similar.length > 0 ? <h2>Movies you may also like</h2> : ''}
-        <MovieItem data={data.similar} fetchMovieID={props.fetchMovieID} count={6} />
       </div>
     </>
   )

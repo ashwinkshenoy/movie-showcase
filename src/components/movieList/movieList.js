@@ -10,6 +10,7 @@ function MovieList(props) {
   
   const data = props.data || [];
   const loading = props.loading;
+  const count = props.count || null
   
   const loader = () => {
     return (
@@ -32,7 +33,7 @@ function MovieList(props) {
 
   return loading ? loader() : 
     data.length === 0 ? noSearchData() : 
-    <MovieItem data={data} fetchMovieID={props.fetchMovieID.bind(this)} />;
+    <MovieItem data={data} fetchMovieID={props.fetchMovieID.bind(this)} count={count} />;
 }
 
 export default MovieList;

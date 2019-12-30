@@ -97,6 +97,27 @@ h1 {
 }
 
 .movie-related h2 {
+  margin: 0 auto 80px;
+  text-align: center;
+}
+
+.movie-related h2 .highlight {
+  position: relative;
+}
+
+.movie-related h2 .highlight::before {
+  content: "";
+  background: rgba(255, 122, 220, 0.5);
+  width: 100%;
+  top: 10px;
+  height: 70%;
+  position: absolute;
+  transform: skew(-35deg, -2deg);
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.movie-related__h2 {
   text-align: center;
   margin: 150px 0 80px 0;
 }

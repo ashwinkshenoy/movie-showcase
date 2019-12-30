@@ -1,0 +1,57 @@
+.movie-cast {
+  margin: 50px 0 80px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.movie-cast h2 {
+  margin: 60px 0;
+}
+
+.movie-cast-list {
+  padding-left: 0;
+  display: flex;
+  overflow-x: scroll;
+  padding-bottom: 40px;
+}
+
+.movie-cast-list li {
+  list-style: none;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.movie-cast-list img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.movie-cast__name {
+  font-size: 14px;
+  margin: 5px 0 0;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 768px) {
+  .movie-cast {
+    color: #333333;
+    margin: 50px 0 100px;
+  }
+  .movie-cast-list {
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18%, 1fr));
+    grid-gap: 20px;
+    padding-bottom: 0;
+  }
+  .movie-cast-list li {
+    margin-right: auto;
+  }
+  .movie-cast-list img {
+    width: 200px;
+    height: 250px;
+  }
+}

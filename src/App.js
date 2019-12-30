@@ -4,18 +4,38 @@ import React, { useState, useEffect } from 'react';
 import SearchBox from './components/search/search.js';
 import MovieList from './components/movieList/movieList.js';
 import Card from './components/card/card.js';
+import Cast from './components/cast/cast.js';
 
 // Basic Stying
 import './App.css';
 
 const key = process.env.REACT_APP_MOVIE_DB_KEY;
 
+// Since not using custom npm pkgs, wrote debounce for search
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // Update debounced value after delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  
+  return debouncedValue;
+}
+
+
 function App() {
 
-  const [movieId] = useState(24428);
+  const [movieId] = useState(299534);
   const [movie, setMovie] = useState([]);
   const [search, setSearch] = useState(null);
-  const [searchData, setSearchData] = useState(null);
+  const [searchCast, setSearchCast] = useState(null);
+  const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const debouncedSearchTerm = useDebounce(search, 500);
 
@@ -38,7 +58,8 @@ function App() {
       runtime: data.runtime,
       revenue: data.revenue,
       backdrop: data.backdrop_path,
-      similar: data.similar.results
+      similar: data.similar.results,
+      cast: data.credits.cast
     })
     setSearch(null)
     setSearchData([])
@@ -47,7 +68,7 @@ function App() {
   }
 
   const fetchMovieID = (movieID) => {
-    const url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar`
+    const url = `https://api.themoviedb.org/3/movie/${movieID}?&api_key=${key}&append_to_response=similar,credits`
     fetchApi(url)
   }
 
@@ -69,6 +90,16 @@ function App() {
     setSearch(e)
   }
 
+  const fetchByCastId = async (cast) => {
+    const {id, name} = cast;
+    if(!id) return;
+    const url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${key}`;
+    const data = await fetch(url).then((res) => res.json());
+    setSearchData(data.cast);
+    setSearchCast(name);
+    setLoading(false);
+  }
+
   // Effect on mounted
   useEffect(() => {
     fetchMovieID(movieId)
@@ -83,40 +114,49 @@ function App() {
     } else {
       setSearchData([]);
     }
-  }, [debouncedSearchTerm]); // Only call effect if debounced search term changes
+  }, [debouncedSearchTerm]);
 
   // Effect to scroll only on props change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [movie]);
+  }, [movie, searchData]);
+
+  const movieRelatedSearch = (data) => {
+    return (
+      <div className="movie-related">
+        { search || searchData.length > 0 ? 
+          <h2>
+            Searching for
+            <span className="highlight"> {search ? search : `${searchCast}`}</span>
+            <span> {search ? '' : 'movies'}</span>
+          </h2> : 
+          <h2 className="movie-related__h2">Movies you may also like</h2> 
+        }
+        <MovieList
+          data={data}
+          fetchMovieID={fetchMovieID}
+          count={!searchData.length > 0 ? 6 : null}
+          loading={loading} 
+        />
+      </div>
+    )
+  }
 
   return (
     <div className="container">
-      <SearchBox handleSearch={handleSearch.bind(this)} />
-      {search ? 
-        <MovieList data={searchData} fetchMovieID={fetchMovieID.bind(this)} loading={loading} /> : 
-        <Card data={movie} fetchMovieID={fetchMovieID.bind(this)} />
+      <SearchBox handleSearch={handleSearch} />
+      { search || searchData.length > 0 ? 
+        movieRelatedSearch(searchData) : 
+        <>
+          <Card data={movie} />
+          <Cast data={movie.cast} fetchByCastId={fetchByCastId}/>
+          {movieRelatedSearch(movie.similar)}
+        </>
       }
+
       <footer className="ashwin">Crafted with <span role="img" aria-label="heart">❤️</span></footer>
     </div>
   )
-}
-
-// Since not using custom npm pkgs, wrote debounce for search
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    // Update debounced value after delay
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-  
-  return debouncedValue;
 }
 
 export default App;
