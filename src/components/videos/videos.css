@@ -1,0 +1,31 @@
+.movie-video h2 {
+  text-align: center;
+  color: #ffffff;
+}
+
+.movie-video ul {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-video li {
+  list-style: none;
+  flex: 1 0 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-video iframe {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .movie-video h2 {
+    color: #333333;
+  }
+  .movie-video ul {
+    flex-direction: row;
+  }
+}

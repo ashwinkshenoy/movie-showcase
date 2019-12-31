@@ -6,6 +6,7 @@ import SearchBox from './components/search/search.js';
 import MovieList from './components/movieList/movieList.js';
 import Card from './components/card/card.js';
 import Cast from './components/cast/cast.js';
+import Videos from './components/videos/videos.js';
 
 // Basic Stying
 import './App.css';
@@ -61,7 +62,8 @@ function App() {
       revenue: data.revenue,
       backdrop: data.backdrop_path,
       similar: data.similar.results,
-      cast: data.credits.cast
+      cast: data.credits.cast,
+      videos: data.videos.results,
     })
     setSearch(null)
     setSearchData([])
@@ -133,9 +135,11 @@ function App() {
               {searchCast.profile_path === null ? '' : <img src={posterIMG+searchCast.profile_path} alt={searchCast.name} />}
             </span> : ''
           }
-          { search ? <span>Searching for </span> : '' }
-          <span className="highlight"> { search ? search : `${searchCast.name}` } </span>
-          <span> { search ? '' : 'movies' }</span>
+          <span>
+            { search ? <span>Searching for </span> : '' }
+            <span className="highlight"> { search ? search : `${searchCast.name}` } </span>
+            { search ? '' : <span> movies</span> }
+          </span>
         </h2>
       )
     } else {
@@ -170,6 +174,7 @@ function App() {
         </> :
         <>
           <Card data={movie} />
+          <Videos data={movie.videos} />
           <Cast data={movie.cast} fetchByCastId={fetchByCastId}/>
           {movieRelatedSearch(movie.similar)}
         </>

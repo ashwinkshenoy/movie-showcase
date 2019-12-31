@@ -3,7 +3,7 @@ import Fade from 'react-reveal/Fade';
 
 import './cast.css';
 
-function cast(props) {
+function Cast(props) {
 
   let data = props.data || []
 
@@ -32,4 +32,4 @@ function cast(props) {
   )
 }
 
-export default cast
+export default Cast
