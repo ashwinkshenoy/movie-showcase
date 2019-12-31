@@ -39,6 +39,21 @@
   color: #ccc;
 }
 
+.movie-search__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search__cast img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 50%;
+  object-position: center;
+}
+
 @media screen and (min-width: 768px) {
   .movie-search {
     padding: 50px 10px 50px;

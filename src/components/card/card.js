@@ -1,9 +1,10 @@
 import React from 'react';
-// import MovieItem from '../movieItem/movieItem'
+import Fade from 'react-reveal/Fade';
 
 import './card.css'
 
 import imdbLogo from '../../static/imdbLogo.svg'
+import noPoster from '../../static/no-poster.svg'
 
 function Card(props) {
 
@@ -30,7 +31,7 @@ function Card(props) {
   };
 
   if(data.poster== null){
-    posterIMG = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwgeZwy48tVBuhwGLh2Kgz55JSEi0rlyx1tiqVb7gqsaR4yqZa';
+    posterIMG = noPoster;
   }
 
   return (
@@ -38,34 +39,40 @@ function Card(props) {
       {/* Main Card Content */}
       <div className="movie-card">
         <div className="movie-card__backdrop">
-          {data.backdrop === null ? '' : <img src={backdropImg} alt={data.title} />}
+          <Fade duration={1000} distance="30px"> 
+            {data.backdrop === null ? '' : <img src={backdropImg} alt={data.title} />}
+          </Fade>
         </div>
 
         <div className="movie-card-main">
           <div className="movie-card__poster">
-            <img src={posterIMG} alt={data.title} />
+            <Fade left duration={1000} distance="30px"> 
+              <img src={posterIMG} alt={data.title} />
+            </Fade>
           </div>
           <div className="movie-card__content">
-            <h1>{data.title ? data.title : data.original_title}</h1>
-            <span className="movie-card__tagline">{data.tagline}</span>
-            <p className="movie-card__overview">{data.overview}</p>
-            <p className="movie-card__genre">{genresList}</p>
-            <p className="movie-card__production">{productionList}</p>
-            
-            <div className="movie-card__row">
-              <div className="movie-card__col">
-                Original Release: <span className="meta-data">{data.release}</span>
+            <Fade bottom duration={1000} distance="30px">
+              <h1>{data.title ? data.title : data.original_title}</h1>
+              <p className="movie-card__tagline">{data.tagline}</p>
+              <p className="movie-card__overview">{data.overview}</p>
+              <p className="movie-card__genre">{genresList}</p>
+              <p className="movie-card__production">{productionList}</p>
+              
+              <div className="movie-card__row">
+                <div className="movie-card__col">
+                  Original Release: <span className="meta-data">{data.release}</span>
+                </div>
+                <div className="movie-card__col">
+                  Running Time: <span className="meta-data">{convertMinsToHrsMins(data.runtime)}</span>
+                </div>
+                <div className="movie-card__col">
+                  Vote Average: <span className="meta-data"><img src={imdbLogo} alt="imdb" />{data.vote} / 10</span>
+                </div>
+                <div className="movie-card__col">
+                  Box Office: <span className="meta-data">{totalRevenue}</span>
+                </div>
               </div>
-              <div className="movie-card__col">
-                Running Time: <span className="meta-data">{convertMinsToHrsMins(data.runtime)}</span>
-              </div>
-              <div className="movie-card__col">
-                Vote Average: <span className="meta-data"><img src={imdbLogo} alt="imdb" />{data.vote} / 10</span>
-              </div>
-              <div className="movie-card__col">
-                Box Office: <span className="meta-data">{totalRevenue}</span>
-              </div>
-            </div>
+            </Fade>
 
           </div>
         </div>
