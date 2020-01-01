@@ -1,9 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import './videos.css';
 
-function Videos(props) {
-  let data = props.data || []
+function Videos() {
+  let data = useSelector(state => state.movie.videos || [])
 
   if(data.length >= 4) {
     data = data.slice(0, 3)
