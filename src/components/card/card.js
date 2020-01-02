@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 import Fade from 'react-reveal/Fade';
 
 import './card.css'
@@ -6,9 +7,9 @@ import './card.css'
 import imdbLogo from '../../static/imdbLogo.svg'
 import noPoster from '../../static/no-poster.svg'
 
-function Card(props) {
+function Card() {
 
-  const data = props.data || {}
+  const data = useSelector(state => state.movie)
   
   let posterIMG = 'https://image.tmdb.org/t/p/w500' + data.poster,
       production = data.production,
@@ -94,6 +95,7 @@ function nestedDataToString(nestedData) {
   return resultString;
 };
 
+
 function convertMinsToHrsMins(mins) {
   let h = Math.floor(mins / 60);
   let m = mins % 60;
@@ -101,5 +103,6 @@ function convertMinsToHrsMins(mins) {
   m = m < 10 ? '0' + m : m;
   return `${h} ${h > 1 ? 'hrs': 'hr'} ${m} ${m > 1 ? 'mins' : 'min'}`;
 }
+
 
 export default Card;
