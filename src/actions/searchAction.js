@@ -6,8 +6,9 @@ export const queryMovie = (movieName) => {
   return async (dispatch) => {
     const url = `https://api.themoviedb.org/3/search/movie?query=${movieName}&api_key=${key}`
     const data = await fetch(url).then((res) => res.json());    
-    dispatch(setSearchData(data.results))
+    await dispatch(setSearchData(data.results))
     dispatch(setMovie({}));
+    dispatch(setLoading(false));
   }
 }
 
@@ -15,8 +16,9 @@ export const queryCast = (castId) => {
   return async (dispatch) => {
     const url = `https://api.themoviedb.org/3/person/${castId}/movie_credits?api_key=${key}`
     const data = await fetch(url).then((res) => res.json());
-    dispatch(setSearchData(data.cast))
+    await dispatch(setSearchData(data.cast))
     dispatch(setMovie({}));
+    dispatch(setLoading(false));
   }
 }
 
@@ -34,7 +36,7 @@ export const setSearchCast = (castData) => {
   }
 }
 
-export const setSearch = (value) => {
+export const setSearchValue = (value) => {
   return {
     type: 'SEARCHVALUE',
     payload: value

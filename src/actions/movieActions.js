@@ -18,6 +18,12 @@ export const setMovie = (movieData) => {
   }
 }
 
+export const resetMovie = () => {
+  return {
+    type: 'RESETMOVIE'
+  }
+}
+
 // Default Api fetch function
 async function fetchApi(url) {
   const data = await fetch(url).then((res) => res.json());

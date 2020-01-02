@@ -13,7 +13,7 @@ import Videos from './components/videos/videos.js';
 
 // Action
 import { fetchMovie } from './actions/movieActions';
-import { setSearch } from './actions/searchAction';
+import { setSearchValue } from './actions/searchAction';
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
 
   const fetchMovieID = async (movieID) => {
     await dispatch(fetchMovie(movieID));
-    dispatch(setSearch(null));
+    dispatch(setSearchValue(null));
     document.getElementById('movieSearch').reset();
   }
 

@@ -9,7 +9,6 @@ import loaderImg from '../../static/loader.svg';
 
 // Actions
 import { fetchMovie } from '../../actions/movieActions'
-import { setSearch } from '../../actions/searchAction'
 
 function MovieList() {
 
@@ -26,7 +25,6 @@ function MovieList() {
 
   const fetchMovieId = async (movieID) => {
     await dispatch(fetchMovie(movieID));
-    dispatch(setSearch(null));
     document.getElementById('movieSearch').reset();
   }
 

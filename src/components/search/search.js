@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import './search.css';
 import logo from '../../static/logo.svg';
 
-import { queryMovie, setSearchData, setSearch, setLoading } from '../../actions/searchAction';
+import { queryMovie, setSearchData, setSearchValue, setLoading } from '../../actions/searchAction';
+import { resetMovie } from '../../actions/movieActions';
 
 
 function SearchBox() {
@@ -17,15 +18,16 @@ function SearchBox() {
       dispatch(setLoading(false))
       return;
     }
-    dispatch(setLoading(true));
-    dispatch(setSearch(e));
+    dispatch(setLoading(true))
+    dispatch(setSearchValue(e));
+    dispatch(resetMovie());
+    dispatch(setSearchData([]));
   }
 
   const queryMovieName = async (name) => {
     if(!name) return;
-    dispatch(setSearch(name));
+    dispatch(setSearchValue(name));
     dispatch(queryMovie(name));
-    dispatch(setLoading(false));
   }
 
   // Effect for search API call 
