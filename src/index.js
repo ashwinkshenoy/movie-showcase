@@ -8,7 +8,9 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import allReducers from './reducers/index';
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const env = process.env.NODE_ENV;
+const composeEnhancer = env === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : compose;
+
 const store = createStore(
   allReducers,
   composeEnhancer(applyMiddleware(thunk)),
