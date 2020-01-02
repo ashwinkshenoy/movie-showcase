@@ -21,10 +21,7 @@ function App() {
   const movie = useSelector(state => state.movie);
   const search = useSelector(state => state.search.searchValue);
   const searchData = useSelector(state => state.search.searchData);
-  const searchCast = useSelector(state => state.search.searchCast);
-  const loading = useSelector(state => state.search.loading);
   const dispatch = useDispatch();  
-  const posterIMG = 'https://image.tmdb.org/t/p/w500';
 
   const fetchMovieID = async (movieID) => {
     await dispatch(fetchMovie(movieID));
@@ -45,57 +42,16 @@ function App() {
   }, [movie, searchData]);
 
 
-  const movieSearchTitle = () => {
-    if(search || searchData.length > 0) {
-      return (
-        <h2 className="movie-search__title">
-          { !search ? 
-            <span className="search__cast">
-              {searchCast.profile_path === null ? '' : <img src={posterIMG+searchCast.profile_path} alt={searchCast.name} />}
-            </span> : ''
-          }
-          <span>
-            { search ? <span>Searching for </span> : '' }
-            <span className="highlight"> { search ? search : `${searchCast.name}` } </span>
-            { search ? '' : <span> movies</span> }
-          </span>
-        </h2>
-      )
-    } else {
-      return (
-        <h2 className="movie-related__h2">Movies you may also like</h2>
-      )
-    }
-  }
-
-
-  const movieRelatedSearch = (data) => {
-    return (
-      <div className="movie-related">
-        { movieSearchTitle() }
-        <MovieList
-          data={data}
-          fetchMovieID={fetchMovieID}
-          count={!searchData.length > 0 ? 6 : null}
-          loading={loading} 
-        />
-      </div>
-    )
-  }
-
-
   return (
     <div className="container">
       <SearchBox />
       { search || searchData.length > 0 ?
-        <>
-          {movieRelatedSearch(searchData)}
-        </> :
+        <MovieList /> :
         <>
           <Card />
           <Videos />
           <Cast />
-          {movieRelatedSearch(movie.similar)}
+          <MovieList />
         </>
       }
 
