@@ -14,7 +14,7 @@ A simple website to search and display movie details using movie db api.
 [![forthebadge](https://forthebadge.com/images/badges/does-not-contain-msg.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/gluten-free.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://movies-showcase.netlify.com)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b4e8a6c5-3ebc-4d37-81fa-ba8bfbbc0dcb/deploy-status)](https://app.netlify.com/sites/movies-showcase/deploys)
 
